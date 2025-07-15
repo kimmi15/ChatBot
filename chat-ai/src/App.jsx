@@ -6,13 +6,7 @@ import axios from "axios";
 const env = import.meta.env.VITE_API_GENERATIVE_LANGUAGE_CLIENT || "";
 const envImage = import.meta.env.VITE_API_GENERATIVE_IMAGE_CLIENT || "";
 
-const promptTemplates = [
-  "Summarize this article",
-  "Generate code for a login form",
-  "Translate this to Hindi",
-  "Write a poem about the moon",
-  "What are the benefits of meditation?"
-];
+
 
 function App() {
   const [chatHistory, setChatHistory] = useState(() => {
@@ -206,15 +200,6 @@ function App() {
         <header className="flex flex-wrap gap-2 justify-between items-center mb-2">
           <h1 className="text-xl font-bold text-blue-500">Gemini Chat AI</h1>
           <div className="flex gap-2 flex-wrap">
-            <select
-              onChange={(e) => setQuestion(e.target.value)}
-              className="text-sm px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-black dark:text-white"
-            >
-              <option value="">🧠 Choose a Prompt</option>
-              {promptTemplates.map((template, index) => (
-                <option key={index} value={template}>{template}</option>
-              ))}
-            </select>
             <button onClick={() => setShowFavorites(!showFavorites)} className="text-sm px-2 py-1 bg-yellow-400 rounded">
               {showFavorites ? "Show All" : "⭐ Favorites"}
             </button>
@@ -248,7 +233,14 @@ function App() {
                       }`}
                   >
                     {item.type === "image" ? (
-                      <img src={item.content} alt="Generated" className="rounded" />
+                      <img
+                        src={item.content}
+                        alt="Generated"
+                        className="rounded"
+                        width={256}
+                        height={256}
+                        style={{ objectFit: "cover", maxWidth: "100%", maxHeight: "256px" }}
+                      />
                     ) : (
                       <ReactMarkdown>{item.content}</ReactMarkdown>
                     )}
